@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { boolean, pgTable, text } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { customAlphabet } from "nanoid";
 
 const createId = () => {
@@ -12,6 +12,7 @@ const createId = () => {
 
 export const draws = pgTable("draws", {
   id: text().primaryKey().notNull().$defaultFn(createId),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const drawNames = pgTable("draw_names", {
@@ -21,7 +22,7 @@ export const drawNames = pgTable("draw_names", {
     .references(() => draws.id, { onDelete: "cascade" }),
   name: text().notNull(),
   match: text().notNull(),
-  is_redeemed: boolean().notNull().default(false),
+  isRedeemed: boolean("is_redeemed").notNull().default(false),
 });
 
 export const drawsRelations = relations(draws, ({ many }) => ({

@@ -46,7 +46,7 @@ export default async function DrawPage({
   }
 
   const sortedParticipants = shuffle(draw.drawNames).sort((a, b) => {
-    return Number(a.is_redeemed) - Number(b.is_redeemed);
+    return Number(a.isRedeemed) - Number(b.isRedeemed);
   });
 
   return (
@@ -65,7 +65,7 @@ export default async function DrawPage({
             key={name.id}
             name={name.name}
             id={name.id}
-            isRedeemed={name.is_redeemed}
+            isRedeemed={name.isRedeemed}
           />
         ))}
       </div>

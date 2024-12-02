@@ -23,7 +23,7 @@ export async function redeemName(
     const [row] = await db
       .update(drawNames)
       .set({
-        is_redeemed: true,
+        isRedeemed: true,
       })
       .where(eq(drawNames.id, id))
       .returning();
