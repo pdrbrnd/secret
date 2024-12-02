@@ -3,17 +3,43 @@
 import { useActionState, useEffect, useState } from "react";
 import { createDraw } from "./actions";
 import { Button } from "@/components/button";
-import { Input, InputAddon, InputGroup } from "@/components/input";
-import { Copy, Trash } from "@phosphor-icons/react";
+import { Input, InputGroup, InputSuffix } from "@/components/input";
+import { Copy, Link, Trash } from "@phosphor-icons/react";
 import { Tooltip } from "@/components/tooltip";
 
 export const DrawForm = () => {
   const [state, action, isPending] = useActionState(createDraw, {
-    participants: new Array(3).fill(""),
+    participants: [""],
   });
   const [participants, setParticipants] = useState<string[]>(
     state.participants
   );
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      if (participants.length === 1) {
+        const pasted = e.clipboardData?.getData("text");
+
+        if (!pasted) return;
+
+        const names = pasted
+          .split(/[\n,]/)
+          .map((n) => n.trim())
+          .filter((n) => n !== "");
+
+        if (names.length > 0) {
+          e.preventDefault();
+          setParticipants(names);
+        }
+      }
+    };
+
+    window.addEventListener("paste", handlePaste);
+
+    return () => {
+      window.removeEventListener("paste", handlePaste);
+    };
+  }, [participants]);
 
   if (state.drawId) {
     return (
@@ -32,7 +58,7 @@ export const DrawForm = () => {
             <CopyButton id={state.drawId} />
           </div>
           <p className="text-foreground/44 mt-2 text-sm">
-            Each participant will be able to see their match only once.
+            Each participant can only redeem their match once.
           </p>
         </div>
       </>
@@ -43,7 +69,7 @@ export const DrawForm = () => {
     <>
       <Header
         title="Secret name matcher"
-        description="Enter the names of participants to randomly assign matches. You will get a magic link to share with participants."
+        description="Enter the names of participants to randomly assign matches. You will get a magic link to share with all participants."
       />
       <form action={action} inert={isPending}>
         <div className="shadow-md border border-border rounded-2xl p-2 flex flex-col gap-2 mt-8">
@@ -61,8 +87,8 @@ export const DrawForm = () => {
                 placeholder="Enter name"
                 required
               />
-              {participants.length > 3 && (
-                <InputAddon
+              {participants.length > 1 && (
+                <InputSuffix
                   interactive
                   role="button"
                   tabIndex={0}
@@ -74,7 +100,7 @@ export const DrawForm = () => {
                   }
                 >
                   <Trash weight="bold" className="text-red-500" />
-                </InputAddon>
+                </InputSuffix>
               )}
             </InputGroup>
           ))}
@@ -87,11 +113,19 @@ export const DrawForm = () => {
           </Button>
         </div>
 
-        {state.error && <p className="text-red-500">{state.error}</p>}
+        <div className="mt-8">
+          {state.error && <p className="text-red-500 mb-4">{state.error}</p>}
 
-        <Button type="submit" isLoading={isPending} className="w-full mt-10">
-          Get magic link
-        </Button>
+          <Button type="submit" isLoading={isPending} className="w-full">
+            <Link weight="bold" />
+            <span>Get magic link</span>
+          </Button>
+        </div>
+
+        <p className="text-foreground/44 mt-2 text-sm">
+          You can also paste a list of names to add multiple participants at
+          once.
+        </p>
       </form>
     </>
   );

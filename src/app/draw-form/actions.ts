@@ -8,6 +8,20 @@ export type FormState = {
   drawId?: string;
 };
 
+// fisher-yates shuffle
+function shuffle<T>(array: T[]): T[] {
+  const arr = [...array];
+
+  for (let i = arr.length - 1; i > 0; i--) {
+    const index = Math.floor(Math.random() * (i + 1));
+    const temp = arr[i];
+    arr[i] = arr[index];
+    arr[index] = temp;
+  }
+
+  return arr;
+}
+
 const isString = (value: unknown): value is string => {
   return typeof value === "string" && value.trim() !== "";
 };
@@ -29,14 +43,12 @@ export async function createDraw(
     const id = await db.transaction(async (tx) => {
       const [draw] = await tx.insert(draws).values({}).returning();
 
-      // Create shuffled pairs for secret santa
-      const shuffledparticipants = [...participants].sort(
-        () => Math.random() - 0.5
+      const shuffledParticipants = shuffle(participants);
+      // shifts index by 1 to match each participant with the next
+      const matches = shuffledParticipants.map(
+        (_, index) =>
+          shuffledParticipants[(index + 1) % shuffledParticipants.length]
       );
-      const matches = [
-        ...shuffledparticipants.slice(1),
-        shuffledparticipants[0],
-      ];
 
       await tx.insert(drawNames).values(
         participants.map((name, index) => ({

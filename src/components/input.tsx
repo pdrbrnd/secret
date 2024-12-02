@@ -222,4 +222,4 @@ const InputAddon = forwardRef<HTMLDivElement, InputAddonProps>(
   }
 );
 
-export { Input, inputStyle, InputGroup, InputPrefix, InputSuffix, InputAddon };
+export { Input, inputStyle, InputGroup, InputPrefix, InputSuffix };
