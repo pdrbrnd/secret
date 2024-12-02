@@ -246,7 +246,7 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
               data-state={state}
               {...getFloatingProps(props)}
               className={cn(
-                "bg-background w-full max-w-md rounded-3xl p-4 shadow-lg",
+                "bg-background w-full max-w-md rounded-3xl p-4 shadow-lg border border-border",
                 "max-h-[calc(100vh-2rem)] overflow-y-auto",
                 "ease-out-quart transition-all",
                 "data-[state=closed]:translate-y-2 data-[state=closed]:scale-95 data-[state=closed]:opacity-0 data-[state=closed]:duration-150 data-[state=open]:translate-y-0 data-[state=open]:scale-100 data-[state=open]:opacity-100 data-[state=open]:duration-300",
@@ -366,7 +366,7 @@ const DialogActions = forwardRef<
   <div
     ref={ref}
     className={cn(
-      "flex flex-col gap-2 sm:flex-row sm:justify-start",
+      "flex flex-col gap-2 pt-4 sm:flex-row sm:justify-start",
       className
     )}
     {...props}
