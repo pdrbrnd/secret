@@ -1,3 +1,6 @@
+"use client";
+
+import { useActionState } from "react";
 import { Button } from "@/components/button";
 import {
   Dialog,
@@ -9,10 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/dialog";
 import { cn } from "@/lib/utils";
-import { db, drawNames } from "@db";
-import { eq } from "drizzle-orm";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { redeemName } from "./actions";
 
 export const Redeem = ({
   name,
@@ -23,22 +23,7 @@ export const Redeem = ({
   id: string;
   isRedeemed: boolean;
 }) => {
-  const handleRedeem = async () => {
-    "use server";
-
-    const [row] = await db
-      .update(drawNames)
-      .set({
-        is_redeemed: true,
-      })
-      .where(eq(drawNames.id, id))
-      .returning();
-
-    const cookieStore = await cookies();
-    cookieStore.set(row.drawId, id);
-
-    redirect(`/${row.drawId}`);
-  };
+  const [{ error }, action, isPending] = useActionState(redeemName, {});
 
   return (
     <Dialog>
@@ -56,12 +41,18 @@ export const Redeem = ({
         <DialogTitle>Are you sure, {name}?</DialogTitle>
         <DialogDescription>
           You are about to reveal your secret match.
+          {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
         </DialogDescription>
         <DialogActions>
-          <Button onClick={handleRedeem}>Confirm</Button>
-          <DialogClose asChild>
-            <Button variant="secondary">Cancel</Button>
-          </DialogClose>
+          <form action={action} inert={isPending}>
+            <input type="hidden" readOnly name="id" value={id} />
+            <Button type="submit" isLoading={isPending}>
+              Confirm
+            </Button>
+            <DialogClose asChild>
+              <Button variant="secondary">Cancel</Button>
+            </DialogClose>
+          </form>
         </DialogActions>
       </DialogContent>
     </Dialog>
