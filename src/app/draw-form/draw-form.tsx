@@ -84,7 +84,7 @@ export const DrawForm = () => {
   return (
     <>
       <Header
-        title="Sorteio de nomes"
+        title="Sortear nomes"
         description={[
           "Introduz os nomes dos participantes para fazer pares aleatórios.",
           "Vais receber um link para enviar a todos os participantes.",
