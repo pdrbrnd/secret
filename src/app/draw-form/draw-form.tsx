@@ -64,8 +64,8 @@ export const DrawForm = () => {
     return (
       <>
         <Header
-          title="Draw created!"
-          description="Send this link to all participants:"
+          title="Sorteio criado!"
+          description="Envia este link a todos os participantes:"
         />
         <div className="mt-4">
           <div className="shadow-md border border-emerald-500/20 bg-emerald-500/10 rounded-2xl p-2 gap-2 text-emerald-500 flex items-center justify-between">
@@ -76,9 +76,6 @@ export const DrawForm = () => {
             />
             <CopyButton id={state.drawId} />
           </div>
-          <p className="text-foreground mt-2 text-sm">
-            Each participant can only redeem their match once.
-          </p>
         </div>
       </>
     );
@@ -87,10 +84,10 @@ export const DrawForm = () => {
   return (
     <>
       <Header
-        title="Secret name matcher"
+        title="Sorteio de nomes"
         description={[
-          "Enter the names of participants to randomly assign matches.",
-          "You will get a magic link to share with all participants.",
+          "Introduz os nomes dos participantes para fazer pares aleatórios.",
+          "Vais receber um link para enviar a todos os participantes.",
         ]}
       />
       <form action={action} inert={isPending}>
@@ -109,7 +106,7 @@ export const DrawForm = () => {
                     prev.map((n, i) => (i === index ? e.target.value : n))
                   );
                 }}
-                placeholder="Enter name"
+                placeholder="Escreve o nome"
                 required
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
@@ -127,6 +124,10 @@ export const DrawForm = () => {
                     inputRefs.current[index - 1]?.focus();
                   }
                 }}
+                data-1p-ignore
+                data-bwignore
+                data-form-type="other"
+                data-lpignore="true"
               />
               {participants.length > 1 && (
                 <InputSuffix
@@ -143,7 +144,7 @@ export const DrawForm = () => {
           ))}
 
           <Button variant="secondary" onClick={handleAddLine}>
-            Add participant
+            Adicionar participante
           </Button>
         </div>
 
@@ -152,13 +153,13 @@ export const DrawForm = () => {
 
           <Button type="submit" isLoading={isPending} className="w-full">
             <Link weight="bold" />
-            <span>Get magic link</span>
+            <span>Obter link</span>
           </Button>
         </div>
 
         <p className="text-foreground mt-2 text-sm">
-          You can also paste a list of names to add multiple participants at
-          once.
+          Também podes colar uma lista de nomes para adicionar vários de uma
+          vez.
         </p>
       </form>
     </>
@@ -183,7 +184,7 @@ const CopyButton = ({ id }: { id: string }) => {
     <Tooltip
       persistOnClick
       delayIn={0}
-      content={copied ? "Copied!" : "Copy"}
+      content={copied ? "Copiado!" : "Copiar"}
       onOpenChange={(open) => {
         if (!open) setCopied(false);
       }}
@@ -199,7 +200,7 @@ const CopyButton = ({ id }: { id: string }) => {
         }}
       >
         <Copy weight="bold" />
-        <span className="sr-only">Copy link</span>
+        <span className="sr-only">Copiar link</span>
       </Button>
     </Tooltip>
   );

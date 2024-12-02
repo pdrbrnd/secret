@@ -32,10 +32,10 @@ export default async function DrawPage({
     return (
       <>
         <Header
-          title={`${participant.name}, your match is here!`}
+          title={`${participant.name}, vê o teu par!`}
           description={[
-            "Click below to reveal.",
-            "You can come back anytime to see your match again",
+            "Clica abaixo para revelar.",
+            "Podes voltar a esta página a qualquer momento para relembrar.",
           ]}
         />
         <div className="mt-8">
@@ -52,11 +52,11 @@ export default async function DrawPage({
   return (
     <div>
       <Header
-        title="Who are you?"
-        description="Click your name to see your secret match."
+        title="Quem és tu?"
+        description="Clica no teu nome para ver quem é o teu par."
       />
       <p className="text-red-500 p-2 bg-red-500/10 rounded-lg mt-4">
-        Choose carefully. Each participant can only redeem their match once.
+        Escolhe com cuidado. Cada participante só pode escolher uma vez.
       </p>
 
       <div className="mt-8 flex flex-col gap-2">

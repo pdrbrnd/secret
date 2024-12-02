@@ -22,7 +22,7 @@ export async function createDraw(
   if (participants.length < 3) {
     return {
       participants,
-      error: "You need to provide at least 3 participants",
+      error: "Tens que introduzir pelo menos 3 participantes.",
     };
   }
 
@@ -31,7 +31,7 @@ export async function createDraw(
   if (uniqueParticipants.size !== participants.length) {
     return {
       participants,
-      error: "You have duplicate participants, make sure each name is unique.",
+      error: "Tens nomes duplicados, certifica-te de que cada nome é único.",
     };
   }
 
@@ -63,7 +63,7 @@ export async function createDraw(
     console.error("Failed to create draw:", error);
     return {
       participants,
-      error: "Failed to create the draw. Please try again.",
+      error: "Falha ao criar o sorteio. Por favor, tenta novamente.",
     };
   }
 }

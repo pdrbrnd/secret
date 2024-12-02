@@ -38,19 +38,19 @@ export const Redeem = ({
         </Button>
       </DialogTrigger>
       <DialogContent className="w-96">
-        <DialogTitle>Are you sure, {name}?</DialogTitle>
+        <DialogTitle>Tens a certeza, {name}?</DialogTitle>
         <DialogDescription>
-          You are about to reveal your secret match.
+          Estás prestes a revelar quem te saiu.
           {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
         </DialogDescription>
         <DialogActions>
           <form action={action} inert={isPending}>
             <input type="hidden" readOnly name="id" value={id} />
             <Button type="submit" isLoading={isPending}>
-              Confirm
+              Confirmar
             </Button>
             <DialogClose asChild>
-              <Button variant="secondary">Cancel</Button>
+              <Button variant="secondary">Cancelar</Button>
             </DialogClose>
           </form>
         </DialogActions>

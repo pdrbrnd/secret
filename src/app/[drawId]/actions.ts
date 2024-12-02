@@ -16,7 +16,7 @@ export async function redeemName(
   const id = data.get("id");
 
   if (!id || typeof id !== "string") {
-    return { error: "No name selected" };
+    return { error: "Nenhum nome selecionado" };
   }
 
   try {
@@ -29,7 +29,7 @@ export async function redeemName(
       .returning();
 
     if (!row) {
-      throw new Error("Failed to redeem name");
+      throw new Error("Falha ao revelar o nome");
     }
 
     const cookieStore = await cookies();
@@ -37,6 +37,6 @@ export async function redeemName(
 
     redirect(`/${row.drawId}`);
   } catch (error) {
-    return { error: "Failed to redeem name. Please try again later." };
+    return { error: "Falha ao revelar o nome. Por favor, tenta novamente." };
   }
 }
