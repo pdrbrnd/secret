@@ -18,7 +18,7 @@ export const drawNames = pgTable("draw_names", {
   id: text().primaryKey().notNull().$defaultFn(createId),
   drawId: text("draw_id")
     .notNull()
-    .references(() => draws.id),
+    .references(() => draws.id, { onDelete: "cascade" }),
   name: text().notNull(),
   match: text().notNull(),
   is_redeemed: boolean().notNull().default(false),
