@@ -21,6 +21,7 @@ export const DrawForm = () => {
     state.participants
   );
 
+  // allow pasting a list of names to add multiple participants at once
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
       if (participants.length === 1) {
@@ -46,6 +47,18 @@ export const DrawForm = () => {
       window.removeEventListener("paste", handlePaste);
     };
   }, [participants]);
+
+  const handleAddLine = () => {
+    flushSync(() => {
+      setParticipants([...participants, ""]);
+    });
+
+    inputRefs.current[participants.length]?.focus();
+  };
+
+  const handleRemoveLine = (index: number) => {
+    setParticipants((prev) => prev.filter((_, i) => i !== index));
+  };
 
   if (state.drawId) {
     return (
@@ -98,6 +111,22 @@ export const DrawForm = () => {
                 }}
                 placeholder="Enter name"
                 required
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    // don't submit and add a new line instead
+                    e.preventDefault();
+                    handleAddLine();
+                  }
+
+                  if (e.key === "Backspace" && participant === "") {
+                    e.preventDefault();
+                    flushSync(() => {
+                      handleRemoveLine(index);
+                    });
+                    // focus the previous input
+                    inputRefs.current[index - 1]?.focus();
+                  }
+                }}
               />
               {participants.length > 1 && (
                 <InputSuffix
@@ -105,11 +134,7 @@ export const DrawForm = () => {
                   role="button"
                   tabIndex={0}
                   className="group-hover:opacity-100 opacity-0 transition-opacity delay-0 group-hover:delay-100 group-focus-within:opacity-100 outline-none focus-visible:ring-4 ring-foreground/10 rounded-sm cursor-pointer"
-                  onClick={() =>
-                    setParticipants((prev) =>
-                      prev.filter((_, i) => i !== index)
-                    )
-                  }
+                  onClick={() => handleRemoveLine(index)}
                 >
                   <Trash weight="bold" className="text-red-500" />
                 </InputSuffix>
@@ -117,15 +142,7 @@ export const DrawForm = () => {
             </InputGroup>
           ))}
 
-          <Button
-            variant="secondary"
-            onClick={() => {
-              flushSync(() => {
-                setParticipants([...participants, ""]);
-              });
-              inputRefs.current[participants.length]?.focus();
-            }}
-          >
+          <Button variant="secondary" onClick={handleAddLine}>
             Add participant
           </Button>
         </div>
