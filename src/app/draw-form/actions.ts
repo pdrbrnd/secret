@@ -17,7 +17,7 @@ export async function createDraw(
   previousState: FormState,
   data: FormData
 ): Promise<FormState> {
-  const participants = data.getAll("participant").filter(isString);
+  const participants = shuffle(data.getAll("participant").filter(isString));
 
   if (participants.length < 3) {
     return {
@@ -39,12 +39,10 @@ export async function createDraw(
     const id = await db.transaction(async (tx) => {
       const [draw] = await tx.insert(draws).values({}).returning();
 
-      const shuffledParticipants = shuffle(participants);
       // shifts index by 1 to match each participant with the next
-      const matches = shuffledParticipants.map(
-        (_, index) =>
-          shuffledParticipants[(index + 1) % shuffledParticipants.length]
-      );
+      const matches = participants.map((_, index) => {
+        return participants[(index + 1) % participants.length];
+      });
 
       await tx.insert(drawNames).values(
         participants.map((name, index) => ({
