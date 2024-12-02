@@ -12,10 +12,11 @@ import { Redeem } from "./redeem";
 export default async function DrawPage({
   params,
 }: {
-  params: { drawId: string };
+  params: Promise<{ drawId: string }>;
 }) {
+  const { drawId } = await params;
   const draw = await db.query.draws.findFirst({
-    where: eq(draws.id, params.drawId),
+    where: eq(draws.id, drawId),
     with: {
       drawNames: true,
     },
