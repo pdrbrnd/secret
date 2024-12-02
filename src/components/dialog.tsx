@@ -246,10 +246,10 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
               data-state={state}
               {...getFloatingProps(props)}
               className={cn(
-                "grid w-full max-w-md gap-4 rounded-3xl bg-background p-4 shadow-lg",
+                "bg-background w-full max-w-md rounded-3xl p-4 shadow-lg",
                 "max-h-[calc(100vh-2rem)] overflow-y-auto",
-                "transition-all ease-out-quart",
-                "data-[state=closed]:translate-y-2 data-[state=open]:translate-y-0 data-[state=closed]:scale-95 data-[state=open]:scale-100 data-[state=closed]:opacity-0 data-[state=open]:opacity-100 data-[state=closed]:duration-150 data-[state=open]:duration-300",
+                "ease-out-quart transition-all",
+                "data-[state=closed]:translate-y-2 data-[state=closed]:scale-95 data-[state=closed]:opacity-0 data-[state=closed]:duration-150 data-[state=open]:translate-y-0 data-[state=open]:scale-100 data-[state=open]:opacity-100 data-[state=open]:duration-300",
                 className
               )}
             >
@@ -294,10 +294,7 @@ const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
         {...props}
         ref={forwardedRef}
         id={id}
-        className={cn(
-          "sticky -top-4 -m-4 mb-0 bg-background p-4 pb-0 font-semibold",
-          className
-        )}
+        className={cn("pb-2 font-semibold", className)}
       >
         {children}
       </h2>
@@ -369,7 +366,7 @@ const DialogActions = forwardRef<
   <div
     ref={ref}
     className={cn(
-      "sticky -bottom-4 -m-4 flex flex-col gap-2 rounded-2xl bg-background p-4 sm:flex-row sm:justify-start",
+      "flex flex-col gap-2 sm:flex-row sm:justify-start",
       className
     )}
     {...props}
