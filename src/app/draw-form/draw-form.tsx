@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { Input, InputGroup, InputSuffix } from "@/components/input";
 import { Copy, Link, Trash } from "@phosphor-icons/react";
@@ -9,11 +9,14 @@ import { Tooltip } from "@/components/tooltip";
 import { Header } from "../header";
 
 import { createDraw } from "./actions";
+import { flushSync } from "react-dom";
 
 export const DrawForm = () => {
   const [state, action, isPending] = useActionState(createDraw, {
     participants: [""],
   });
+
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [participants, setParticipants] = useState<string[]>(
     state.participants
   );
@@ -82,6 +85,9 @@ export const DrawForm = () => {
           {participants.map((participant, index) => (
             <InputGroup key={index} className="group">
               <Input
+                ref={(el) => {
+                  inputRefs.current[index] = el;
+                }}
                 type="text"
                 name="participant"
                 value={participant}
@@ -113,7 +119,12 @@ export const DrawForm = () => {
 
           <Button
             variant="secondary"
-            onClick={() => setParticipants([...participants, ""])}
+            onClick={() => {
+              flushSync(() => {
+                setParticipants([...participants, ""]);
+              });
+              inputRefs.current[participants.length]?.focus();
+            }}
           >
             Add participant
           </Button>

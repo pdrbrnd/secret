@@ -39,13 +39,13 @@
   --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --color-background: oklch(0 0 0);
     --color-foreground: oklch(100% 0 0);
     --color-border: oklch(24% 0 0);
   }
-} */
+}
 
 body {
   font-family: var(--font-sans);

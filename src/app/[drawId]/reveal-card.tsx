@@ -25,7 +25,7 @@ export const RevealCard = ({ name }: { name: string }) => {
         )}
       </div>
 
-      <Tooltip content="View match">
+      <Tooltip content={reveal ? "Hide match" : "View match"}>
         <Button variant="secondary" square onClick={() => setReveal(!reveal)}>
           {reveal ? <EyeClosed weight="bold" /> : <Eye weight="bold" />}
         </Button>

@@ -26,6 +26,15 @@ export async function createDraw(
     };
   }
 
+  // check for duplicates
+  const uniqueParticipants = new Set(participants);
+  if (uniqueParticipants.size !== participants.length) {
+    return {
+      participants,
+      error: "You have duplicate participants, make sure each name is unique.",
+    };
+  }
+
   try {
     const id = await db.transaction(async (tx) => {
       const [draw] = await tx.insert(draws).values({}).returning();
