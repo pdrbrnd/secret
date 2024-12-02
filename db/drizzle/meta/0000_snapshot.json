@@ -1,5 +1,5 @@
 {
-  "id": "d6622323-687b-48c9-8e18-5915b77f36f4",
+  "id": "4225e97a-6f1c-425b-a8be-accdd718a71b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,13 +10,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
         },
         "draw_id": {
           "name": "draw_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -68,9 +68,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
         }
       },
       "indexes": {},

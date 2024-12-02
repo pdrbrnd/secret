@@ -1,13 +1,13 @@
 CREATE TABLE IF NOT EXISTS "draw_names" (
-	"id" uuid,
-	"draw_id" uuid NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
+	"draw_id" text NOT NULL,
 	"name" text NOT NULL,
 	"match" text NOT NULL,
 	"is_redeemed" boolean DEFAULT false NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "draws" (
-	"id" uuid
+	"id" text PRIMARY KEY NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN

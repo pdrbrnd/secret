@@ -1,13 +1,22 @@
 import { relations } from "drizzle-orm";
-import { boolean, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text } from "drizzle-orm/pg-core";
+import { customAlphabet } from "nanoid";
+
+const createId = () => {
+  const alphabet =
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const nanoid = customAlphabet(alphabet, 14);
+
+  return nanoid();
+};
 
 export const draws = pgTable("draws", {
-  id: uuid(),
+  id: text().primaryKey().notNull().$defaultFn(createId),
 });
 
 export const drawNames = pgTable("draw_names", {
-  id: uuid(),
-  drawId: uuid("draw_id")
+  id: text().primaryKey().notNull().$defaultFn(createId),
+  drawId: text("draw_id")
     .notNull()
     .references(() => draws.id),
   name: text().notNull(),
