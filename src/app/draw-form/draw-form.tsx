@@ -104,7 +104,7 @@ export const DrawForm = () => {
                   interactive
                   role="button"
                   tabIndex={0}
-                  className="group-hover:opacity-100 opacity-0 transition-opacity delay-0 group-hover:delay-100 group-focus-within:opacity-100 outline-none focus-visible:ring-4 ring-foreground/10 rounded-sm ring-offset-2 cursor-pointer"
+                  className="group-hover:opacity-100 opacity-0 transition-opacity delay-0 group-hover:delay-100 group-focus-within:opacity-100 outline-none focus-visible:ring-4 ring-foreground/10 rounded-sm cursor-pointer"
                   onClick={() =>
                     setParticipants((prev) =>
                       prev.filter((_, i) => i !== index)
