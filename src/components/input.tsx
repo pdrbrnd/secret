@@ -21,7 +21,7 @@ const inputStyle = cva({
   base: [
     "transition",
     "w-full border h-10 rounded-xl px-4 py-1 text-base font-medium",
-    "focus:outline-none focus-visible:border-foreground/20 focus-visible:ring-4 focus-visible:ring-foreground/10 focus-visible:text-foreground disabled:cursor-not-allowed disabled:opacity-50 text-foreground/80 placeholder:text-foreground/44 data-[invalid]:border-red-500 data-[invalid]:hover:border-red-600 data-[invalid]:focus-visible:border-red-500 data-[invalid]:focus-visible:ring-red-500/20",
+    "focus:outline-none focus-visible:border-foreground/20 focus-visible:ring-4 focus-visible:ring-foreground/10 focus-visible:text-foreground disabled:cursor-not-allowed disabled:opacity-50 text-foreground/80 placeholder:text-foreground/40 data-[invalid]:border-red-500 data-[invalid]:hover:border-red-600 data-[invalid]:focus-visible:border-red-500 data-[invalid]:focus-visible:ring-red-500/20",
   ],
   variants: {
     variant: {

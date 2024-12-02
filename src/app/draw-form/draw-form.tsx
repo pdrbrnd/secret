@@ -1,11 +1,14 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { createDraw } from "./actions";
 import { Button } from "@/components/button";
 import { Input, InputGroup, InputSuffix } from "@/components/input";
 import { Copy, Link, Trash } from "@phosphor-icons/react";
 import { Tooltip } from "@/components/tooltip";
+
+import { Header } from "../header";
+
+import { createDraw } from "./actions";
 
 export const DrawForm = () => {
   const [state, action, isPending] = useActionState(createDraw, {
@@ -57,7 +60,7 @@ export const DrawForm = () => {
             />
             <CopyButton id={state.drawId} />
           </div>
-          <p className="text-foreground/44 mt-2 text-sm">
+          <p className="text-foreground mt-2 text-sm">
             Each participant can only redeem their match once.
           </p>
         </div>
@@ -69,7 +72,10 @@ export const DrawForm = () => {
     <>
       <Header
         title="Secret name matcher"
-        description="Enter the names of participants to randomly assign matches. You will get a magic link to share with all participants."
+        description={[
+          "Enter the names of participants to randomly assign matches.",
+          "You will get a magic link to share with all participants.",
+        ]}
       />
       <form action={action} inert={isPending}>
         <div className="shadow-md border border-border rounded-2xl p-2 flex flex-col gap-2 mt-8">
@@ -122,27 +128,12 @@ export const DrawForm = () => {
           </Button>
         </div>
 
-        <p className="text-foreground/44 mt-2 text-sm">
+        <p className="text-foreground mt-2 text-sm">
           You can also paste a list of names to add multiple participants at
           once.
         </p>
       </form>
     </>
-  );
-};
-
-const Header = ({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) => {
-  return (
-    <div>
-      <h1 className="text-2xl font-bold">{title}</h1>
-      <p className="text-foreground/44 mt-1">{description}</p>
-    </div>
   );
 };
 

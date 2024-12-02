@@ -52,6 +52,7 @@ body {
 
   background-color: var(--color-background);
   color: var(--color-foreground);
+  font-weight: var(--font-weight-medium);
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
