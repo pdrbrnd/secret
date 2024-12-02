@@ -57,6 +57,8 @@ export const DrawForm = () => {
   };
 
   const handleRemoveLine = (index: number) => {
+    if (participants.length === 1) return;
+
     setParticipants((prev) => prev.filter((_, i) => i !== index));
   };
 
