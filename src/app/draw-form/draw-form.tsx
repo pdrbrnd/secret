@@ -139,7 +139,7 @@ export const DrawForm = () => {
                   className="group-hover:opacity-100 opacity-0 transition-opacity delay-0 group-hover:delay-100 group-focus-within:opacity-100 outline-none focus-visible:ring-4 ring-foreground/10 rounded-sm cursor-pointer"
                   onClick={() => handleRemoveLine(index)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
+                    if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
                       handleRemoveLine(index);
                     }
