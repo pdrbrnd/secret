@@ -138,6 +138,12 @@ export const DrawForm = () => {
                   tabIndex={0}
                   className="group-hover:opacity-100 opacity-0 transition-opacity delay-0 group-hover:delay-100 group-focus-within:opacity-100 outline-none focus-visible:ring-4 ring-foreground/10 rounded-sm cursor-pointer"
                   onClick={() => handleRemoveLine(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleRemoveLine(index);
+                    }
+                  }}
                 >
                   <Trash weight="bold" className="text-red-500" />
                 </InputSuffix>
