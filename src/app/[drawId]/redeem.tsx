@@ -43,8 +43,8 @@ export const Redeem = ({
           Estás prestes a revelar quem te saiu.
           {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
         </DialogDescription>
-        <DialogActions>
-          <form action={action} inert={isPending}>
+        <form action={action} inert={isPending}>
+          <DialogActions>
             <input type="hidden" readOnly name="id" value={id} />
             <Button type="submit" isLoading={isPending}>
               Confirmar
@@ -52,8 +52,8 @@ export const Redeem = ({
             <DialogClose asChild>
               <Button variant="secondary">Cancelar</Button>
             </DialogClose>
-          </form>
-        </DialogActions>
+          </DialogActions>
+        </form>
       </DialogContent>
     </Dialog>
   );
